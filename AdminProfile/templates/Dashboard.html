@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            padding: 40px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .admin-header {
+            background-color: #1e293b;
+            padding: 20px 30px;
+            border-radius: 10px;
+            color: #fff;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-size: 26px;
+        }
+
+        .admin-info {
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #1e293b;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .status {
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .fulfilled {
+            background-color: #10b981;
+            color: #fff;
+        }
+
+        .pending {
+            background-color: #f59e0b;
+            color: #fff;
+        }
+
+        .action-btns button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .fulfill-btn {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .pending-btn {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .action-btns button:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+
+            th,
+            td {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                padding: 12px;
+                position: relative;
+                border-bottom: 1px solid #eee;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #888;
+            }
+        }
+
+        .products-cont {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            margin-bottom: 100px;
+            justify-content: center;
+        }
+
+        .main-product-cont {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .products {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            width: 300px;
+            cursor: pointer;
+            padding: 10px;
+            justify-content: space-between;
+            transition-property: all;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+        }
+
+        .products:hover {
+            transform: translateY(-20px);
+        }
+
+        .pro-img {
+            border-radius: 20px;
+            width: 250px;
+            height: 250px;
+            padding: 10px;
+        }
+
+        .details {
+            font-size: 22px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+            padding: 3px;
+        }
+
+        .green {
+            color: rgb(12, 189, 12);
+            font-weight: 500;
+            display: inline;
+        }
+
+        .det-btn,
+        .order-btn {
+            color: white;
+            margin: 10px;
+            font-family: monospace;
+            background-color: rgb(0, 182, 0);
+            border: 2px, solid, rgb(0, 182, 0);
+            font-weight: 600;
+            outline: none;
+            box-shadow: 2px 4px 4px rgb(0, 182, 0);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+            transition-duration: 0.2s;
+            transition-property: all;
+            transition-timing-function: linear;
+        }
+
+        .det-btn:active {
+            background-color: rgb(4, 88, 4);
+            border-color: rgb(4, 88, 4);
+            box-shadow: 2px 4px 4px rgb(4, 88, 4);
+        }
+
+        .det-btn-cont {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        hr {
+            margin: 2px;
+        }
+
+        table {
+            margin-bottom: 200px;
+        }
+
+        .red-det-btn {
+            color: white;
+            margin: 10px;
+            font-family: monospace;
+            background-color: rgb(177, 0, 0);
+            border: 2px, solid, rgb(177, 0, 0);
+            font-weight: 600;
+            outline: none;
+            box-shadow: 2px 4px 4px rgb(177, 0, 0);
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+            transition-duration: 0.2s;
+            transition-property: all;
+            transition-timing-function: linear;
+        }
+
+        .green-det-btn {
+            color: white;
+            margin: 10px;
+            font-family: monospace;
+            background-color: rgb(4, 88, 4);
+            border: 2px, solid, rgb(4, 88, 4);
+            font-weight: 600;
+            outline: none;
+            box-shadow: 2px 4px 4px rgb(4, 88, 4);
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+            transition-duration: 0.2s;
+            transition-property: all;
+            transition-timing-function: linear;
+        }
+
+        .blue-det-btn {
+            color: white;
+            margin: 10px;
+            font-family: monospace;
+            background-color: blue;
+            border: 2px, solid, blue;
+            font-weight: 600;
+            outline: none;
+            box-shadow: 2px 4px 4px blue;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+            transition-duration: 0.2s;
+            transition-property: all;
+            transition-timing-function: linear;
+        }
+
+        .messages-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .alert {
+            position: relative;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Alert Types from Django: success, error, warning, info */
+        .alert-success {
+            background-color: #4caf50;
+        }
+
+        .alert-error,
+        .alert-danger {
+            background-color: #f44336;
+        }
+
+        .alert-warning {
+            background-color: #ff9800;
+        }
+
+        .alert-info {
+            background-color: #2196f3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================
+   FULL RESPONSIVE MEDIA QUERIES
+========================================= */
+
+        /* 🖥️ Extra-Large Screens (1600px and up) */
+        @media screen and (min-width: 1600px) {
+            .admin-header h1 {
+                font-size: 32px;
+            }
+
+            th,
+            td {
+                font-size: 18px;
+            }
+
+            .details {
+                font-size: 24px;
+            }
+
+            .pro-img {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        /* 💻 Large Screens (1200px–1599px) */
+        @media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+            th,
+            td {
+                font-size: 16px;
+            }
+
+            .products {
+                width: 280px;
+            }
+
+            .details {
+                font-size: 20px;
+            }
+
+            .pro-img {
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        /* 🧾 Medium Devices (992px–1199px) */
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            body {
+                padding: 30px;
+            }
+
+            .admin-header h1 {
+                font-size: 24px;
+            }
+
+            .details {
+                font-size: 18px;
+            }
+
+            .products {
+                width: 260px;
+            }
+
+            .pro-img {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        /* 📱 Tablets / Small Laptops (768px–991px) */
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+            body {
+                padding: 20px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .admin-header h1 {
+                font-size: 22px;
+            }
+
+            th,
+            td {
+                font-size: 14px;
+            }
+
+            .products {
+                width: 240px;
+            }
+
+            .details {
+                font-size: 16px;
+            }
+
+            .pro-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* 📳 Phones (480px–767px) */
+        @media screen and (min-width: 480px) and (max-width: 767px) {
+            body {
+                padding: 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 20px;
+            }
+
+            .admin-info {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .products {
+                width: 95vw;
+            }
+
+            .details {
+                font-size: 14px;
+            }
+
+            .pro-img {
+                width: 100%;
+                height: auto;
+            }
+
+            .action-btns button {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
+
+            .det-btn,
+            .order-btn,
+            .red-det-btn,
+            .blue-det-btn,
+            .green-det-btn {
+                font-size: 14px;
+                padding: 4px 8px;
+                margin: 5px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* 🧊 Tiny Screens (<480px) */
+        @media screen and (max-width: 479px) {
+            body {
+                padding: 10px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 18px;
+            }
+
+            .admin-info {
+                font-size: 11px;
+            }
+
+            .products {
+                width: 95vw;
+            }
+
+            .details {
+                font-size: 13px;
+            }
+
+            .pro-img {
+                width: 100%;
+                height: auto;
+            }
+
+            .det-btn,
+            .order-btn,
+            .red-det-btn,
+            .blue-det-btn,
+            .green-det-btn {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .alert {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .close-btn {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <div class="admin-info">
+                <strong>Admin:</strong> Mian Ali <br>
+                <strong>Role:</strong> Super Admin
+            </div>
+        </div>
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Customer Name</th>
+                    <th>Phone Numer</th>
+                    <th>Email Address</th>
+                    <th>Street Address</th>
+                    <th>City</th>
+                    <th>Note From Customer</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="orderTable">
+                {% for i in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.cus_name}}</td>
+                    <td>{{i.cus_phone}}</td>
+                    <td>{{i.cus_phone}}</td>
+                    <td>{{i.cus_address}}</td>
+                    <td>{{i.cus_city}}</td>
+                    <td>{{i.cus_notes}}</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td class="action-btns">
+                        <a href="/fulfil/{{i.id}}/"><button class="fulfill-btn">Fulfill</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h1 style="text-align: center;margin-bottom:100px;">Manage Your Products Here</h1>
+    <div class="main-product-cont">
+        {% for i in products %}
+        <div class="products" id="product-{{forloop.counter}}">
+            <div class="pro-img-cont">
+                <img src="/media/{{i.image}}" alt="Product's Image" class="pro-img">
+            </div>
+            <div class="pro-det">
+                <div id="cat" style="display: none;">{{i.category}}</div>
+                <div class="details" id="pro-name">{{i.name}}</div>
+                <hr>
+                <div class="details" id="pro-price">
+                    <div class="green">PKR </div>{{i.price}}
+                </div>
+                <hr>
+                <div class="details" id="pro-code">Code : {{i.code}}</div>
+                <hr>
+                <div class="det-btn-cont">
+                    {% if i.is_hidden == False %}
+                    <a href="/hide/{{i.id}}/"><button class="red-det-btn">Hide It</button></a>
+                    {% else %}
+                    <a href="/display/{{i.id}}/"><button class="green-det-btn">Display It</button></a>
+                    {% endif %}
+                    <a href="/update/{{i.id}}/"><button class="blue-det-btn">Update It</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

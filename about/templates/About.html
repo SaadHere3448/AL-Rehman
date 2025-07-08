@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Elegant Shop</title>
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #888 transparent;
+            transition: scrollbar-color 0.3s ease;
+        }
+
+        /* Scrollbar Hide on Inactivity */
+        body.hide-scrollbar {
+            scrollbar-color: transparent transparent;
+        }
+
+        /* About Section */
+        .about-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .about-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Article Section */
+        .article-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 40px 20px;
+            background-color: #eef2f3;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .article-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-section h1 {
+                font-size: 2rem;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+            }
+        }
+
+        /* ======================================
+   MEDIA QUERIES: ALL DEVICES
+====================================== */
+
+        /* 🖥 Extra Large Screens (4K+) */
+        @media screen and (min-width: 1600px) {
+
+            .about-section,
+            .article-section {
+                max-width: 1400px;
+            }
+
+            .about-section h1 {
+                font-size: 3rem;
+            }
+
+            .about-section p {
+                font-size: 1.4rem;
+            }
+
+            .article-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .article-section p {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* 💻 Desktops (1200px–1599px) */
+        @media screen and (min-width: 1200px) and (max-width: 1599px) {
+            .about-section h1 {
+                font-size: 2.3rem;
+            }
+
+            .about-section p {
+                font-size: 1.2rem;
+            }
+
+            .article-section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* 🧾 Laptops/Tablets (992px–1199px) */
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .about-section {
+                padding: 30px 15px;
+            }
+
+            .about-section h1 {
+                font-size: 2rem;
+            }
+
+            .about-section p {
+                font-size: 1.1rem;
+            }
+
+            .article-section {
+                margin: 60px auto;
+                padding: 30px 15px;
+            }
+
+            .article-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* 📱 Medium Tablets / Small Laptops (768px–991px) */
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+            .about-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .article-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 📳 Smartphones (480px–767px) */
+        @media screen and (min-width: 480px) and (max-width: 767px) {
+            .about-section {
+                padding: 20px 10px;
+                margin: 30px auto;
+            }
+
+            .about-section h1 {
+                font-size: 1.6rem;
+            }
+
+            .about-section p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .article-section {
+                margin: 40px auto;
+                padding: 20px 10px;
+            }
+
+            .article-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .article-section p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 🧊 Ultra-Small Phones (<480px) */
+        @media screen and (max-width: 479px) {
+            .about-section h1 {
+                font-size: 1.3rem;
+            }
+
+            .about-section p {
+                font-size: 0.85rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .article-section p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <h1>Welcome to Elegant Shop</h1>
+        <p>
+            This is, without a doubt, the best grocery store I’ve ever visited. From the moment you walk in, you're
+            greeted with fresh produce, neatly organized aisles, and an atmosphere that feels both welcoming and
+            efficient. The quality of the products is consistently top-notch, and the variety—whether it's everyday
+            essentials or specialty items—is unmatched. The staff are friendly, knowledgeable, and always willing to
+            help, making every shopping trip smooth and enjoyable. It’s more than just a grocery store—it’s a place I
+            genuinely look forward to visiting.
+        </p>
+        <p style="margin-top:20px;">
+            📍 <strong>Location:</strong> 123 Style Street, Fashionville, CA
+            <br />
+            📞 <strong>Contact:</strong> (123) 456-7890
+            <br />
+            🕒 <strong>Hours:</strong> Mon–Sat: 10AM–8PM, Sun: 11AM–6PM
+        </p>
+    </section>
+
+    <!-- Article Section (appears on scroll) -->
+    <section class="article-section" id="special-article">
+        <h2 style="text-align:center; margin-bottom: 15px;">Discover Our Signature Collection</h2>
+        <p style="text-align:center; max-width: 800px; margin: 0 auto;">
+            Our Signature Collection showcases the essence of Elegant Shop — sophistication, style, and quality.
+            Handpicked by our in-house stylists, this collection blends modern trends with timeless elegance.
+        </p>
+    </section>
+
+    <script>
+        // === Hide scrollbar on inactivity ===
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            document.body.classList.remove('hide-scrollbar');
+
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.add('hide-scrollbar');
+            }, 1000); // 1 second after scroll stops
+        });
+
+        // === Trigger when reaching article ===
+        const article = document.getElementById('special-article');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    article.classList.add('visible');
+                    console.log('User has reached the Signature Collection article!');
+                }
+            });
+        }, {
+            threshold: 0.5, // triggers when 50% of the article is visible
+        });
+
+        observer.observe(article);
+    </script>
+
+</body>
+
+</html>
